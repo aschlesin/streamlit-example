@@ -4,13 +4,15 @@ import math
 import pandas as pd
 import streamlit as st
 import requests
-from getpass import getpass
+# from getpass import getpass
+"Hi There!"
 
 try:
     query_params = st.experimental_get_query_params()
     token = query_params['token'][0]
 except:
-    token = getpass('ONC Token')
+    token = 'no-token'
+    'Need ONC token to work'
 
 url = 'https://data.oceannetworks.ca/api/locations'
 params = {
