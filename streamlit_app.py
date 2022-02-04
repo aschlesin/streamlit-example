@@ -3,6 +3,27 @@ import altair as alt
 import math
 import pandas as pd
 import streamlit as st
+import requests
+from getpass import getpass
+
+try:
+    query_params = st.experimental_get_query_params()
+    token = query_params['token'][0]
+except:
+    token = getpass('ONC Token')
+
+url = 'https://data.oceannetworks.ca/api/locations'
+params = {
+    'token': token,
+    'method': 'get',
+    'deviceCategoryCode': 'ACCELEROMETER',
+    'locationCode': 'NEP',
+    'includeChildren': 'true'
+}
+
+r = requests.get(url, params=params)
+
+r.json()
 
 """
 # Welcome to Streamlit!
