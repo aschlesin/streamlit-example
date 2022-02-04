@@ -16,22 +16,30 @@ except Exception as e:
     e
     'Need ONC token to work'
 
-url = 'https://data.oceannetworks.ca/api/locations'
-params = {
-    'token': token,
-    'method': 'get',
-    'deviceCategoryCode': 'ACCELEROMETER',
-    'locationCode': 'NEP',
-    'includeChildren': 'true'
-}
+@st.cache(TTL=3600)
+def getData():
+    url = 'https://data.oceannetworks.ca/api/locations'
+    params = {
+        'token': token,
+        'method': 'get',
+        'deviceCategoryCode': 'ACCELEROMETER',
+        'locationCode': 'NEP',
+        'includeChildren': 'true'
+    }
 
-r = requests.get(url, params=params)
+    r = requests.get(url, params=params)
+    return r
+
+r = getData()    
+
 r.url
 
 #st.json(r.json())
 
 sta = pd.DataFrame(r.json())[['locationCode', 'lon', 'lat', 'depth']]
 sta
+
+st.map(sta)
 
 """
 # Welcome to Streamlit!
