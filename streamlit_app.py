@@ -16,7 +16,23 @@ except Exception as e:
     token = st.text_input('Enter your ONC API Token:', type="password")
     st.experimental_set_query_params(token=token)
     # e
-    
+ 
+@st.cache(ttl=3600)
+def getDeviceCategories():
+    url = 'https://data.oceannetworks.ca/api/deviceCategories'
+    params = {
+        'token': token,
+        'method': 'get',
+    }
+
+    r = requests.get(url, params=params)
+    return r
+r_dc =  getDeviceCategories()
+"Got device categories using: %s" % r_dc.url
+
+device_categories = ['%s | %s' % (dc['deviceCategoryCode'], dc['deviceCategoryName']) for dc in r_dc.json()]
+device_category = st.selectbox('Device Categories', device_categories)
+'Selected device category: %s' % device_category
 
 @st.cache(ttl=3600)
 def getData():
