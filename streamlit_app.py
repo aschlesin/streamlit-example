@@ -26,11 +26,12 @@ params = {
 }
 
 r = requests.get(url, params=params)
-r
 r.url
-r.ok
 
-st.json(r.json())
+#st.json(r.json())
+
+sta = pd.DataFrame(r.json())[['locationCode', 'lon', 'lat', 'depth']]
+sta
 
 """
 # Welcome to Streamlit!
