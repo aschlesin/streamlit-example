@@ -24,8 +24,11 @@ params = {
 }
 
 r = requests.get(url, params=params)
+r
+r.url
+r.ok
 
-r.json()
+st.json(r.json())
 
 """
 # Welcome to Streamlit!
