@@ -12,9 +12,11 @@ try:
     query_params
     token = query_params['token'][0]
 except Exception as e:
-    token = 'no-token'
-    e
-    'Need ONC token to work'
+    st.error('ONC API token required. Get yours at https://data.oceannetworks.ca/Profile')
+    token = st.text_input('Enter your ONC API Token:', type="password")
+    st.experimental_set_query_params(token=token)
+    # e
+    
 
 @st.cache(ttl=3600)
 def getData():
