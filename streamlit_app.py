@@ -9,9 +9,11 @@ import requests
 
 try:
     query_params = st.experimental_get_query_params()
+    query_params
     token = query_params['token'][0]
-except:
+except Exception as e:
     token = 'no-token'
+    e
     'Need ONC token to work'
 
 url = 'https://data.oceannetworks.ca/api/locations'
