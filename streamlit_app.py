@@ -62,23 +62,28 @@ r.url
 #st.json(r.json())
 
 sta = pd.DataFrame(r.json())[['locationCode', 'lon', 'lat', 'depth']]
-sta
 
+@st.cache
 def convert_df(df):
    return df.to_csv().encode('utf-8')
 
 
-csv = convert_df(sta)
+col1, col2 = st.columns(2)
 
-st.download_button(
-   "Press to Download",
-   csv,
-   "file.csv",
-   "text/csv",
-   key='download-csv'
-)
+with col1:
+    sta
+    csv = convert_df(sta)
 
-st.map(sta)
+    st.download_button(
+       "Download table as CSV",
+       csv,
+       "%s_LocationTable.csv" % deviceCategoryCode,
+       "text/csv",
+       key='download-csv'
+    )
+
+with col2:
+    st.map(sta)
 
 """
 # Welcome to Streamlit!
