@@ -4,12 +4,16 @@ import math
 import pandas as pd
 import streamlit as st
 import requests
-# from getpass import getpass
-"Hi There!"
+
+"""
+Little demo that is almost an URL builder app for the [ONC Oceans 3.0 API](https://wiki.oceannetworks.ca/display/O2A/Oceans+2.0+API+Home).
+
+
+"""
 
 try:
     query_params = st.experimental_get_query_params()
-    query_params
+    #query_params
     token = query_params['token'][0]
 except Exception as e:
     st.error('ONC API token required. Get yours at https://data.oceannetworks.ca/Profile')
@@ -30,17 +34,20 @@ def getDeviceCategories():
 r_dc =  getDeviceCategories()
 "Got device categories using: %s" % r_dc.url
 
+
 device_categories = ['%s | %s' % (dc['deviceCategoryCode'], dc['deviceCategoryName']) for dc in r_dc.json()]
 device_category = st.selectbox('Device Categories', device_categories)
 'Selected device category: %s' % device_category
 
+deviceCategoryCode = device_category.split(' | ')[0]
+
 @st.cache(ttl=3600)
-def getData():
+def getData(deviceCategoreyCode):
     url = 'https://data.oceannetworks.ca/api/locations'
     params = {
         'token': token,
         'method': 'get',
-        'deviceCategoryCode': 'ACCELEROMETER',
+        'deviceCategoryCode': deviceCategoryCode,
         'locationCode': 'NEP',
         'includeChildren': 'true'
     }
@@ -48,7 +55,7 @@ def getData():
     r = requests.get(url, params=params)
     return r
 
-r = getData()    
+r = getData(deviceCategoryCode)    
 
 r.url
 
