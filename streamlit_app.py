@@ -5,6 +5,8 @@ import pandas as pd
 import streamlit as st
 import requests
 
+st.set_page_config(layout="wide") # Make wide the default :-)
+
 """
 Little demo that is almost an URL builder app for the [ONC Oceans 3.0 API](https://wiki.oceannetworks.ca/display/O2A/Oceans+2.0+API+Home).
 
