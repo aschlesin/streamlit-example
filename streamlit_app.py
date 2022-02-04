@@ -16,7 +16,7 @@ except Exception as e:
     e
     'Need ONC token to work'
 
-@st.cache(TTL=3600)
+@st.cache(ttl=3600)
 def getData():
     url = 'https://data.oceannetworks.ca/api/locations'
     params = {
