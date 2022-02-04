@@ -64,6 +64,20 @@ r.url
 sta = pd.DataFrame(r.json())[['locationCode', 'lon', 'lat', 'depth']]
 sta
 
+def convert_df(df):
+   return df.to_csv().encode('utf-8')
+
+
+csv = convert_df(sta)
+
+st.download_button(
+   "Press to Download",
+   csv,
+   "file.csv",
+   "text/csv",
+   key='download-csv'
+)
+
 st.map(sta)
 
 """
