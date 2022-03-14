@@ -6,8 +6,8 @@ import streamlit as st
 import requests
 import datetime
 #import matplotlib.pyplot as plt
-from bokeh.plotting import figure, output_file, show
-from bokeh.models import ColumnDataSource
+#from bokeh.plotting import figure, output_file, show
+#from bokeh.models import ColumnDataSource
 
 """
 Little demo that is almost an URL builder app for the [ONC Oceans 3.0 API](https://wiki.oceannetworks.ca/display/O2A/Oceans+2.0+API+Home).
@@ -84,26 +84,4 @@ for locCode in locCodes:
 df['sampleTimes']=pd.to_datetime(data['sensorData'][0]['data']['sampleTimes'])
 df = df.set_index(df['sampleTimes'])
 df = df.drop(columns='sampleTimes')
-
-
-from bokeh.io import  output_file, show
-from bokeh.plotting import figure,gridplot
-
-# create a new plot
-s1 = figure(width=450, plot_height=250, title='NCBC')
-s1.circle(df.index.values, df['NCBC'], size=5, color="navy", alpha=0.5)
-
-# create another one
-s2 = figure(width=450, height=250, title='NC89')
-s2.circle(df.index.values, df['NC89'], size=5, color="firebrick", alpha=0.5)
-
-# # create and another
-# s3 = figure(width=250, height=250, title=None)
-# s3.square(x, y2, size=10, color="olive", alpha=0.5)
-
-# put all the plots in a grid layout
-p = gridplot([[s1, s2]])#, [None, s3]])
-
-# show the results
-show(p)
-
+df
